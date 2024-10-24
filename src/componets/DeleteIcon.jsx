@@ -1,21 +1,20 @@
-import { toast } from "react-toastify"; // Import Toastify for showing success notifications after deleting a task
-import { useTasks } from "../contexts/TaskContext"; // Import custom context to manage tasks
+import { toast } from "react-toastify";
+import { useTasks } from "../contexts/TaskContext";
 
-// Component to handle the deletion of tasks with confirmation and notification
 export default function DeleteIcon({ idPass }) {
-    const { dispatch } = useTasks(); // Get dispatch function from context to handle task state
+    const { dispatch } = useTasks();
 
-    // Function to handle delete action
     const handleDelete = () => {
-        // Prompt user for confirmation before deleting
         if (window.confirm("Are you sure you want to delete this task?")) {
-            // Dispatch DELETE_TASK action with taskId to remove the task
-            dispatch({
-                type: "DELETE_TASK",
-                taskId: idPass,
-            });
-            // Show success notification after task is deleted
-            toast.success("Task deleted successfully!");
+            try {
+                dispatch({
+                    type: "DELETE_TASK",
+                    taskId: idPass,
+                });
+                toast.success("Task deleted successfully!");
+            } catch (error) {
+                toast.error("Failed to delete the task. Please try again.");
+            }
         }
     };
 
@@ -31,10 +30,10 @@ export default function DeleteIcon({ idPass }) {
             strokeLinecap="round"
             strokeLinejoin="round"
             className="h-4 w-4 cursor-pointer text-zinc-300"
-            onClick={handleDelete} // Trigger delete function on icon click
-            aria-label="Delete task" // Accessibility: provide label for screen readers
+            onClick={handleDelete}
+            aria-label="Delete task"
+            role="button" // Added for better accessibility
         >
-            {/* Trash bin icon paths */}
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M4 7l16 0" />
             <path d="M10 11l0 6" />
