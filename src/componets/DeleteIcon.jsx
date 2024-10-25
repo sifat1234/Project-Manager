@@ -5,17 +5,13 @@ export default function DeleteIcon({ idPass }) {
     const { dispatch } = useTasks();
 
     const handleDelete = () => {
-        if (window.confirm("Are you sure you want to delete this task?")) {
-            try {
+        
                 dispatch({
                     type: "DELETE_TASK",
                     taskId: idPass,
                 });
                 toast.success("Task deleted successfully!");
-            } catch (error) {
-                toast.error("Failed to delete the task. Please try again.");
-            }
-        }
+           
     };
 
     return (
